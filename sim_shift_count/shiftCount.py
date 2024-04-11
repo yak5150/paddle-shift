@@ -22,13 +22,15 @@ for lap, lap_data in lap_group:
         time = time_column.iloc[i]
 
         if gear != 0:
+            print(f"Gear: {gear}, Time: {time}, Last Gear: {last_non_zero_gear}, Last Shift Time: {last_shift_time}")
             if last_non_zero_gear is not None:
                 if gear > last_non_zero_gear:
                     lap_shifts.append(1)  # Upshift
                 elif gear < last_non_zero_gear:
                     lap_shifts.append(0)  # Downshift
-                lap_times.append(time - last_shift_time)
-                last_shift_time = time
+                if gear != last_non_zero_gear:
+                    lap_times.append(time - last_shift_time)
+                    last_shift_time = time
             last_non_zero_gear = gear
 
     shifts.extend(lap_shifts)
