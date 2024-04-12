@@ -3,6 +3,9 @@ import pandas as pd
 data = pd.read_csv('fsae_michigan18_&_madformulateam_mft02_evo_&_Yak_5150_&_stint_3.csv')
 data = data[data['Lap'] > 0]
 
+index_lap1 = data[data['Lap'] == 1].index.min()
+time_lap1 = data.loc[index_lap1, 'Time [s]']
+
 gear_column = data['Gear']
 time_column = data['Time [s]']
 
@@ -10,7 +13,7 @@ shifts = []
 times = []
 
 last_non_zero_gear = None
-last_shift_time = 75.35
+last_shift_time = time_lap1
 
 for i in range(len(gear_column)):
     gear = gear_column.iloc[i]
